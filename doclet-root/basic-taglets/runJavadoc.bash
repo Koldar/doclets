@@ -8,6 +8,7 @@ javadoc \
     	-taglet com.massimobono.doclets.taglets.Textbf \
     	-taglet com.massimobono.doclets.taglets.Textit \
     	-taglet com.massimobono.doclets.taglets.Date \
+    	-taglet com.massimobono.doclets.taglets.Image \
     	-author \
     	-d doc \
     	-nodeprecated \

@@ -5,6 +5,7 @@ import java.awt.Color;
 import com.massimobono.doclets.commons.taglets.TagletVisitorContext;
 import com.massimobono.doclets.commons.taglets.block.AbstractGroupTaglet;
 import com.massimobono.doclets.commons.taglets.block.AbstractTextBlockTaglet;
+import com.massimobono.doclets.commons.taglets.inline.AbstractTextInlineTaglet;
 import com.sun.source.doctree.AttributeTree;
 import com.sun.source.doctree.AuthorTree;
 import com.sun.source.doctree.CommentTree;
@@ -35,17 +36,8 @@ import com.sun.source.doctree.UnknownInlineTagTree;
 import com.sun.source.doctree.ValueTree;
 import com.sun.source.doctree.VersionTree;
 
-import com.massimobono.doclets.taglets.AbstractBox.BoxInfo;
 
-public abstract class AbstractBox extends AbstractGroupTaglet<BoxInfo>{
-	
-	public static class BoxInfo {
-		public boolean isTitleFound;
-		
-		public BoxInfo(boolean isTitleFound) {
-			this.isTitleFound = isTitleFound;
-		}
-	}
+public abstract class AbstractBox extends AbstractTextInlineTaglet {
 	
 	/**
 	 * 
@@ -71,196 +63,5 @@ public abstract class AbstractBox extends AbstractGroupTaglet<BoxInfo>{
 	 */
 	public abstract Color getBodyColor();
 	
-	
-	@Override
-	public BoxInfo visitAttribute(AttributeTree arg0, TagletVisitorContext<BoxInfo> arg1) {
-		return arg1.getBuilding();
-	}
-
-	@Override
-	public BoxInfo visitAuthor(AuthorTree arg0, TagletVisitorContext<BoxInfo> arg1) {
-		return arg1.getBuilding();
-	}
-
-	@Override
-	public BoxInfo visitComment(CommentTree arg0, TagletVisitorContext<BoxInfo> arg1) {
-		return arg1.getBuilding();
-	}
-
-	@Override
-	public BoxInfo visitDeprecated(DeprecatedTree arg0, TagletVisitorContext<BoxInfo> arg1) {
-		return arg1.getBuilding();
-	}
-
-	@Override
-	public BoxInfo visitDocComment(DocCommentTree arg0, TagletVisitorContext<BoxInfo> arg1) {
-		return arg1.getBuilding();
-	}
-
-	@Override
-	public BoxInfo visitDocRoot(DocRootTree arg0, TagletVisitorContext<BoxInfo> arg1) {
-		return arg1.getBuilding();
-	}
-
-	@Override
-	public BoxInfo visitEndElement(EndElementTree arg0, TagletVisitorContext<BoxInfo> arg1) {
-		return arg1.getBuilding();
-	}
-
-	@Override
-	public BoxInfo visitEntity(EntityTree arg0, TagletVisitorContext<BoxInfo> arg1) {
-		return arg1.getBuilding();
-	}
-
-	@Override
-	public BoxInfo visitErroneous(ErroneousTree arg0, TagletVisitorContext<BoxInfo> arg1) {
-		return arg1.getBuilding();
-	}
-
-	@Override
-	public BoxInfo visitIdentifier(IdentifierTree arg0, TagletVisitorContext<BoxInfo> arg1) {
-		return arg1.getBuilding();
-	}
-
-	@Override
-	public BoxInfo visitInheritDoc(InheritDocTree arg0, TagletVisitorContext<BoxInfo> arg1) {
-		return arg1.getBuilding();
-	}
-
-	@Override
-	public BoxInfo visitLink(LinkTree arg0, TagletVisitorContext<BoxInfo> arg1) {
-		return arg1.getBuilding();
-	}
-
-	@Override
-	public BoxInfo visitLiteral(LiteralTree arg0, TagletVisitorContext<BoxInfo> arg1) {
-		return arg1.getBuilding();
-	}
-
-	@Override
-	public BoxInfo visitOther(DocTree arg0, TagletVisitorContext<BoxInfo> arg1) {
-		return arg1.getBuilding();
-	}
-
-	@Override
-	public BoxInfo visitParam(ParamTree arg0, TagletVisitorContext<BoxInfo> arg1) {
-		return arg1.getBuilding();
-	}
-
-	@Override
-	public BoxInfo visitReference(ReferenceTree arg0, TagletVisitorContext<BoxInfo> arg1) {
-		return arg1.getBuilding();
-	}
-
-	@Override
-	public BoxInfo visitReturn(ReturnTree arg0, TagletVisitorContext<BoxInfo> arg1) {
-		return arg1.getBuilding();
-	}
-
-	@Override
-	public BoxInfo visitSee(SeeTree arg0, TagletVisitorContext<BoxInfo> arg1) {
-		return arg1.getBuilding();
-	}
-
-	@Override
-	public BoxInfo visitSerial(SerialTree arg0, TagletVisitorContext<BoxInfo> arg1) {
-		return arg1.getBuilding();
-	}
-
-	@Override
-	public BoxInfo visitSerialData(SerialDataTree arg0, TagletVisitorContext<BoxInfo> arg1) {
-		return arg1.getBuilding();
-	}
-
-	@Override
-	public BoxInfo visitSerialField(SerialFieldTree arg0, TagletVisitorContext<BoxInfo> arg1) {
-		return arg1.getBuilding();
-	}
-
-	@Override
-	public BoxInfo visitSince(SinceTree arg0, TagletVisitorContext<BoxInfo> arg1) {
-		return arg1.getBuilding();
-	}
-
-	@Override
-	public BoxInfo visitStartElement(StartElementTree arg0, TagletVisitorContext<BoxInfo> arg1) {
-		return arg1.getBuilding();
-	}
-
-	@Override
-	public BoxInfo visitText(TextTree arg0, TagletVisitorContext<BoxInfo> arg1) {
-		
-		return arg1.getBuilding();
-	}
-
-	@Override
-	public BoxInfo visitThrows(ThrowsTree arg0, TagletVisitorContext<BoxInfo> arg1) {
-		return arg1.getBuilding();
-	}
-
-	@Override
-	public BoxInfo visitUnknownBlockTag(UnknownBlockTagTree arg0, TagletVisitorContext<BoxInfo> arg1) {
-		return arg1.getBuilding();
-	}
-
-	@Override
-	public BoxInfo visitUnknownInlineTag(UnknownInlineTagTree arg0, TagletVisitorContext<BoxInfo> arg1) {
-		return arg1.getBuilding();
-	}
-
-	@Override
-	public BoxInfo visitValue(ValueTree arg0, TagletVisitorContext<BoxInfo> arg1) {
-		return arg1.getBuilding();
-	}
-
-	@Override
-	public BoxInfo visitVersion(VersionTree arg0, TagletVisitorContext<BoxInfo> arg1) {
-		return arg1.getBuilding();
-	}
-
-	@Override
-	protected boolean canBeOnConstructor() {
-		return true;
-	}
-
-	@Override
-	protected boolean canBeOnField() {
-		return true;
-	}
-
-	@Override
-	protected boolean canBeOnMethod() {
-		return true;
-	}
-
-	@Override
-	protected boolean canBeOnModule() {
-		return true;
-	}
-
-	@Override
-	protected boolean canBeOnOverview() {
-		return true;
-	}
-
-	@Override
-	protected boolean canBeOnPackage() {
-		return true;
-	}
-
-	@Override
-	protected boolean canBeOnType() {
-		return true;
-	}
-
-	@Override
-	public BoxInfo createOut() {
-		return new BoxInfo(false);
-	}
-
-	@Override
-	public String convertOutputToString(BoxInfo out) {
-		return out;
-	}
 
 }
