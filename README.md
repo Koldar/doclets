@@ -37,7 +37,22 @@ In order to be detected, *doc comments* have to be put before the element you wa
 
 ## Tags
 
-Tags are element starting with `@`.
+Tags are element starting with `@`. There are 2 types of tags:
+
+1. **block tags**: a string preceeded by `@` where `@` appears at the beginning of a *doc comment* row (ignoring `*` characters). The first block tag of a doc comment represents the end of the *main description* sector as well. Block tags starts with the name of the tag (excluded) up until the next block tag (excluded). For example the following doc comment:
+
+```
+/**
+ * main part
+ *
+ * @note this is a really interesting note
+ * this is also inside the previous note
+ *
+ * Still in the previous note!
+ *
+ * @param ok this is a new block tag
+ */
+```
 
 # Javadoc useful references:
 
