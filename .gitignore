@@ -1,0 +1,11 @@
+# Eclipse
+
+.metadata/
+.settings/
+.project
+.classpath
+
+#output files
+doc/
+target/
+bin/
