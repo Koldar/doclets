@@ -67,6 +67,7 @@ public class SimpleDocTreeVisitor<OUT> implements DocTreeVisitor<OUT, TagletVisi
 		OUT result = null;
 		for (int i=0; i<nodes.size(); ++i) {
 			var node = nodes.get(i);
+			System.out.println(String.format("visiting child %s of %s with type...", node, parent, node.getKind()));
 			var current = new TagletVisitorContext<>(
 					previousReturn, 
 					parent,
