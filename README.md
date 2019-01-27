@@ -57,3 +57,4 @@ Tags are element starting with `@`. There are 2 types of tags:
 # Javadoc useful references:
 
 https://doc.bccnsoft.com/docs/jdk7-docs/technotes/tools/solaris/javadoc.html#tagsection
+https://docs.oracle.com/javase/9/javadoc/javadoc-command.htm#JSJAV-GUID-EAAAE17F-E540-42A0-B22B-4D2B2FD3E4D2
