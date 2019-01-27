@@ -15,6 +15,14 @@ import com.sun.source.doctree.TextTree;
  * 
  * {@image http://files-cdn.shortlist.com/app/uploads/2016/06/27172449/cat-killer-256x256.png}
  * 
+ * And here a dot diagram
+ * 
+ * {@dot
+ * 	digraph test {
+ * 		A -> B;
+ * 	} 
+ * }
+ * 
  * 
  * @author koldar
  * @date 26/01/2018

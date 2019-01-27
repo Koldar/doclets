@@ -9,12 +9,13 @@ import java.nio.file.Path;
 import java.util.Arrays;
 
 public class ExternalProgramInvoker {
-
+	
 	public ExternalProgramInvoker() {
 		
 	}
 	
 	public int invoke(String command, Path cwd) throws IOException, InterruptedException {
+		System.out.println("executing command " + command + " in directory " + cwd.toAbsolutePath().toString());
 		var process = new ProcessBuilder()
 				.command(command)
 				.directory(cwd.toAbsolutePath().toFile())
