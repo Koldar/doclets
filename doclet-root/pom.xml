@@ -11,6 +11,14 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
+	<developers>
+		<developer>
+			<name>Massimo Bono</name>
+			<email>massimobono1@gmail.com</email>
+			<timezone>+1</timezone>
+		</developer>
+	</developers>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -21,52 +29,47 @@
 					<release>11</release>
 				</configuration>
 			</plugin>
-			<!-- <plugin>
-				https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin
-			    <groupId>org.apache.maven.plugins</groupId>
-			    <artifactId>maven-javadoc-plugin</artifactId>
-			    <version>3.0.1</version>
-			    <executions>
-			    	<execution>
-			    		<id>generate javadoc with taglets</id>
-			    		<goals>
-			    			<goal>javadoc</goal>
-			    		</goals>
-			    		<phase>prepare-package</phase>
-			    		<configuration>
-			    			<outputDirectory>${project.build.directory}/doc</outputDirectory>
-			    			<destDir>doc</destDir>
-			    			<author>true</author>
-			    			<failOnError>true</failOnError>
-			    			<verbose>false</verbose>
-			    			<show>public</show>
-			    			<nodeprecated>true</nodeprecated>
-			    			<nodeprecatedlist>true</nodeprecatedlist>
-			    			<noindex>true</noindex>
-			    			<nonavbar>true</nonavbar>
-			    			<notree>true</notree>
-			    			<source>11</source>
-			    			<sourcepath></sourcepath>
-			    			<use>true</use>
-			    			<version>true</version>
-			    			<taglets>
-			    				<taglet>
-			    					<tagletClass>com.massimobono.doclets.taglets.Textbf</tagletClass>
-			    				</taglet>
-			    			</taglets>
-		    				<tagletArtifact>
-		    					<groupId>com.massimobono.doclets</groupId>
-		    					<artifactId>basic-taglets</artifactId>
-		    					<version>${project.version}</version>
-		    				</tagletArtifact>
-			    		</configuration>
-			    	</execution>
-			    </executions>
-			</plugin> -->
+			<!-- <plugin> https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin 
+				<groupId>org.apache.maven.plugins</groupId> <artifactId>maven-javadoc-plugin</artifactId> 
+				<version>3.0.1</version> <executions> <execution> <id>generate javadoc with 
+				taglets</id> <goals> <goal>javadoc</goal> </goals> <phase>prepare-package</phase> 
+				<configuration> <outputDirectory>${project.build.directory}/doc</outputDirectory> 
+				<destDir>doc</destDir> <author>true</author> <failOnError>true</failOnError> 
+				<verbose>false</verbose> <show>public</show> <nodeprecated>true</nodeprecated> 
+				<nodeprecatedlist>true</nodeprecatedlist> <noindex>true</noindex> <nonavbar>true</nonavbar> 
+				<notree>true</notree> <source>11</source> <sourcepath></sourcepath> <use>true</use> 
+				<version>true</version> <taglets> <taglet> <tagletClass>com.massimobono.doclets.taglets.Textbf</tagletClass> 
+				</taglet> </taglets> <tagletArtifact> <groupId>com.massimobono.doclets</groupId> 
+				<artifactId>basic-taglets</artifactId> <version>${project.version}</version> 
+				</tagletArtifact> </configuration> </execution> </executions> </plugin> -->
 		</plugins>
 	</build>
 	<modules>
 		<module>doclet-commons</module>
 		<module>basic-taglets</module>
 	</modules>
+
+	<dependencies>
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.8.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.8.0-beta2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.8.0-beta2</version>
+		</dependency>
+
+
+
+	</dependencies>
 </project>
