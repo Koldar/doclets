@@ -22,6 +22,11 @@ public class DotInvoker {
 	
 	/**
 	 * path to the dot command in the system 
+	 * 
+	 * This is not mandatory to be an absolute path.
+	 * For exmaple it may be {@code /usr/local/bin/dot} but it may also be {@code dot}.
+	 * You shouldn't call absolute path of it because otherwise it the path is not an abolute one, {@code dot} command will be prepended
+	 * with the current working directory.
 	 */
 	private Path dot;
 	/**
@@ -78,7 +83,7 @@ public class DotInvoker {
 		
 		//create image file
 		var cmd = String.format("%s -T%s -o %s %s %s", 
-				this.dot.toAbsolutePath().toString(), 
+				this.dot.toString(), 
 				this.extension,
 				imageFile.toString(),
 				this.extraParams,
