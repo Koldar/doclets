@@ -14,20 +14,27 @@ public class ExternalProgramInvoker {
 		
 	}
 	
-	public int invoke(String command, Path cwd) throws IOException, InterruptedException {
-		System.out.println("executing command " + command + " in directory " + cwd.toAbsolutePath().toString());
-		var process = new ProcessBuilder()
-				.command(command)
-				.directory(cwd.toAbsolutePath().toFile())
-				.start();
-		
-		// Wait to finish application execution.
-		process.waitFor();
-		int returnVal = process.exitValue();
-		if (returnVal != 0) {
-			throw new RuntimeException();
+	public int invoke(String command, Path cwd) {
+		try {
+			System.out.println("executing command \"" + command + "\" in directory \"" + cwd.toAbsolutePath().toString()+"\"");
+			var process = new ProcessBuilder()
+					.command(command.split(" "))
+					.directory(cwd.toAbsolutePath().toFile())
+					.inheritIO()
+					.start();
+			
+			// Wait to finish application execution.
+			int returnVal = process.waitFor();
+			if (returnVal != 0) {
+				throw new RuntimeException(String.format("the returned value of the program \"%s\" was %d (cwd was \"%s\")",
+						command,
+						returnVal,
+						cwd.toAbsolutePath().toString()
+				));
+			}
+			return returnVal;
+		} catch (IOException | InterruptedException e) {
+			throw new RuntimeException(e);
 		}
-		return returnVal;
-		
 	}
 }

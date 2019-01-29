@@ -18,9 +18,8 @@ public class Dot extends AbstractTextInlineTaglet {
 	private DotInvoker dot;
 	
 	public Dot() {
-		//FIXME continue from here: Paths,get("dot").toAbsolutePath() does not lead to "dot", so the program is not found at all
 		this.dot = new DotInvoker(
-				Paths.get("dot"), 
+				Paths.get("/usr/bin/dot"), 
 				"svg", 
 				Paths.get(""), 
 				true, 

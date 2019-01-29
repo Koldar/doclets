@@ -3,6 +3,7 @@ package com.massimobono.doclets.commons.taglets;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import javax.lang.model.element.Element;
 
@@ -47,6 +48,8 @@ import jdk.javadoc.doclet.Taglet;
  * @param <OUT> the structure that we're going to build whilw we're inside the visitor used to explore the tag children
  */
 public abstract class AbstractTaglet<OUT> implements Taglet, DocTreeVisitor<OUT, TagletVisitorContext<OUT>> {
+	
+	private static final Logger LOG = Logger.getLogger(AbstractTaglet.class.getName());
 	
 	public AbstractTaglet() {
 	}
@@ -134,7 +137,9 @@ public abstract class AbstractTaglet<OUT> implements Taglet, DocTreeVisitor<OUT,
 		
 		var tagVisitor = new SimpleDocTreeVisitor<OUT>(this);
 		
+		LOG.info(String.format("taglet is a forest of %d trees...", tags.size()));
 		for (int i=0; i<tags.size(); ++i) {
+			LOG.info(String.format("handling tree #%d out of %d", i, tags.size()));
 			var tag = tags.get(i);
 			result = tag.accept(tagVisitor, new TagletVisitorContext<OUT>(result, null, i, tags, element, 0));
 		}

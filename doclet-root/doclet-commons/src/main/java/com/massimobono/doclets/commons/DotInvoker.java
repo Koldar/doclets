@@ -8,6 +8,8 @@ import java.nio.file.Path;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 public class DotInvoker {
@@ -68,7 +70,7 @@ public class DotInvoker {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	public Path invoke(String dotFileContent) throws IOException, InterruptedException {
+	public Path invoke(String dotFileContent) throws IOException {
 
 		var basename = (!this.outputName.isEmpty()) ? this.outputName : String.format("dotimage_%05d", nextId++);
 		LOG.info("basename is \"" + basename + "\"");
@@ -82,13 +84,15 @@ public class DotInvoker {
 		}
 		
 		//create image file
-		var cmd = String.format("%s -T%s -o %s %s %s", 
-				this.dot.toString(), 
-				this.extension,
-				imageFile.toString(),
-				this.extraParams,
-				dotFile.toString()
-		);
+		var cmds = new ArrayList<String>();
+		cmds.add(this.dot.toAbsolutePath().toString());
+		cmds.add(String.format("-T%s", this.extension));
+		cmds.add(String.format("-o %s", imageFile.toString()));
+		if (!this.extraParams.isEmpty()) {
+			cmds.add(this.extraParams);
+		}
+		cmds.add(dotFile.toString());
+		var cmd = String.join(" ", cmds);
 		new ExternalProgramInvoker().invoke(cmd, this.outputDirectory);
 		
 		//remove dot file if needed
