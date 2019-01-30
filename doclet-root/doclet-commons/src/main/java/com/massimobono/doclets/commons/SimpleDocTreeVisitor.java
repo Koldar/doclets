@@ -2,8 +2,9 @@ package com.massimobono.doclets.commons;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
+import java.util.stream.IntStream;
 
-import com.massimobono.doclets.commons.taglets.TagletVisitorContext;
 import com.sun.source.doctree.AttributeTree;
 import com.sun.source.doctree.AuthorTree;
 import com.sun.source.doctree.CommentTree;
@@ -47,13 +48,15 @@ import com.sun.source.doctree.VersionTree;
  * @param <P>
  */
 public class SimpleDocTreeVisitor<OUT> implements DocTreeVisitor<OUT, TagletVisitorContext<OUT>> {
-
-	private DocTreeVisitor<OUT, TagletVisitorContext<OUT>> visitor;
 	
-	public SimpleDocTreeVisitor(DocTreeVisitor<OUT, TagletVisitorContext<OUT>> visitor) {
+	private static final Logger LOG = Logger.getLogger(SimpleDocTreeVisitor.class.getName());
+
+	private BeginEndDocVisitor<OUT, TagletVisitorContext<OUT>> visitor;
+
+	public SimpleDocTreeVisitor(BeginEndDocVisitor<OUT, TagletVisitorContext<OUT>> visitor) {
 		this.visitor = visitor;
 	}
-	
+
 	/**
 	 * call the visitor on the children of a {@link DocTree} node
 	 * 
@@ -64,10 +67,9 @@ public class SimpleDocTreeVisitor<OUT> implements DocTreeVisitor<OUT, TagletVisi
 	 * @return
 	 */
 	private OUT navigate(List<? extends DocTree> nodes, OUT previousReturn, DocTree parent, TagletVisitorContext<OUT> previous) {
-		OUT result = null;
 		for (int i=0; i<nodes.size(); ++i) {
 			var node = nodes.get(i);
-			System.out.println(String.format("visiting child %s of %s with type %s...", node, parent, node.getKind()));
+			LOG.info(String.format("in parent of type %s: visiting child %s with type %s...", parent.getKind(), node, node.getKind()));
 			var current = new TagletVisitorContext<>(
 					previousReturn, 
 					parent,
@@ -75,16 +77,17 @@ public class SimpleDocTreeVisitor<OUT> implements DocTreeVisitor<OUT, TagletVisi
 					previous.getForest(),
 					previous.getElement(),
 					previous.getDepth() + 1
-			);
-			result = this.navigate(node, current);
+					);
+			previousReturn = this.navigate(node, current);
+			LOG.info(String.format("in parent of type %s: finished visiting child %s of type %s", parent.getKind(), node, node.getKind()));
 		}
-		return result;
+		return previousReturn;
 	}
-	
+
 	private OUT navigate(DocTree child, OUT previousReturn, DocTree parent, TagletVisitorContext<OUT> previous) {
 		return this.navigate(Arrays.asList(child), previousReturn, parent, previous);
 	}
-	
+
 	/**
 	 * call the correct visitor method given a node to visit and the context to pass to the visitor
 	 * 
@@ -174,201 +177,234 @@ public class SimpleDocTreeVisitor<OUT> implements DocTreeVisitor<OUT, TagletVisi
 			throw new RuntimeException();
 		}
 	}
-	
+
 	@Override
 	public OUT visitAttribute(AttributeTree node, TagletVisitorContext<OUT> p) {
-		OUT result = this.visitor.visitAttribute(node, p);
-		return this.navigate(node.getValue(), result, node, p);
+		p.setBuilding(this.visitor.visitBegin(node, p));
+		p.setBuilding(this.navigate(node.getValue(), p.getBuilding(), node, p));
+		p.setBuilding(this.visitor.visitEnd(node, p));
+		return p.getBuilding();
 	}
 
 	@Override
 	public OUT visitAuthor(AuthorTree node, TagletVisitorContext<OUT> p) {
-		OUT result = this.visitor.visitAuthor(node, p);
-		return result;
+		p.setBuilding(this.visitor.visitBegin(node, p));
+		p.setBuilding(this.visitor.visitEnd(node, p));
+		return p.getBuilding();
 	}
 
 	@Override
 	public OUT visitComment(CommentTree node, TagletVisitorContext<OUT> p) {
-		OUT result = this.visitor.visitComment(node, p);
-		return result;
+		p.setBuilding(this.visitor.visitBegin(node, p));
+		p.setBuilding(this.visitor.visitEnd(node, p));
+		return p.getBuilding();
 	}
 
 	@Override
 	public OUT visitDeprecated(DeprecatedTree node, TagletVisitorContext<OUT> p) {
-		OUT result = this.visitor.visitDeprecated(node, p);
-		return this.navigate(node.getBody(), result, node, p);
+		p.setBuilding(this.visitor.visitBegin(node, p));
+		return this.navigate(node.getBody(), p.getBuilding(), node, p);
 	}
 
 	@Override
 	public OUT visitDocComment(DocCommentTree node, TagletVisitorContext<OUT> p) {
-		OUT result = this.visitor.visitDocComment(node, p);
-		result = this.navigate(node.getPreamble(), result, node, p);
-		result = this.navigate(node.getFullBody(), result, node, p);
-		result = this.navigate(node.getPostamble(), result, node, p);
-		return result;
+		p.setBuilding(this.visitor.visitBegin(node, p));
+		p.setBuilding(this.navigate(node.getPreamble(), p.getBuilding(), node, p));
+		p.setBuilding(this.navigate(node.getFullBody(), p.getBuilding(), node, p));
+		p.setBuilding(this.navigate(node.getPostamble(), p.getBuilding(), node, p));
+		p.setBuilding(this.visitor.visitEnd(node, p));
+		return p.getBuilding();
 	}
 
 	@Override
 	public OUT visitDocRoot(DocRootTree node, TagletVisitorContext<OUT> p) {
-		OUT result = this.visitor.visitDocRoot(node, p);
-		return result;
+		p.setBuilding(this.visitor.visitBegin(node, p));
+		p.setBuilding(this.visitor.visitEnd(node, p));
+		return p.getBuilding();
 	}
 
 	@Override
 	public OUT visitEndElement(EndElementTree node, TagletVisitorContext<OUT> p) {
-		OUT result = this.visitor.visitEndElement(node, p);
-		return result;
+		p.setBuilding(this.visitor.visitBegin(node, p));
+		p.setBuilding(this.visitor.visitEnd(node, p));
+		return p.getBuilding();
 	}
 
 	@Override
 	public OUT visitEntity(EntityTree node, TagletVisitorContext<OUT> p) {
-		OUT result = this.visitor.visitEntity(node, p);
-		return result;
+		p.setBuilding(this.visitor.visitBegin(node, p));
+		p.setBuilding(this.visitor.visitEnd(node, p));
+		return p.getBuilding();
 	}
 
 	@Override
 	public OUT visitErroneous(ErroneousTree node, TagletVisitorContext<OUT> p) {
-		OUT result = this.visitor.visitErroneous(node, p);
-		return result;
+		p.setBuilding(this.visitor.visitBegin(node, p));
+		p.setBuilding(this.visitor.visitEnd(node, p));
+		return p.getBuilding();
 	}
 
 	@Override
 	public OUT visitIdentifier(IdentifierTree node, TagletVisitorContext<OUT> p) {
-		OUT result = this.visitor.visitIdentifier(node, p);
-		return result;
+		p.setBuilding(this.visitor.visitBegin(node, p));
+		p.setBuilding(this.visitor.visitEnd(node, p));
+		return p.getBuilding();
 	}
 
 	@Override
 	public OUT visitInheritDoc(InheritDocTree node, TagletVisitorContext<OUT> p) {
-		OUT result = this.visitor.visitInheritDoc(node, p);
-		return result;
+		p.setBuilding(this.visitor.visitBegin(node, p));
+		p.setBuilding(this.visitor.visitEnd(node, p));
+		return p.getBuilding();
 	}
 
 	@Override
 	public OUT visitLink(LinkTree node, TagletVisitorContext<OUT> p) {
-		OUT result = this.visitor.visitLink(node, p);
-		result = this.navigate(node.getLabel(), result, node, p);
-		return result;
+		p.setBuilding(this.visitor.visitBegin(node, p));
+		p.setBuilding(this.navigate(node.getLabel(), p.getBuilding(), node, p));
+		p.setBuilding(this.visitor.visitEnd(node, p));
+		return p.getBuilding();
 	}
 
 	@Override
 	public OUT visitLiteral(LiteralTree node, TagletVisitorContext<OUT> p) {
-		OUT result = this.visitor.visitLiteral(node, p);
-		result = this.navigate(node.getBody(), result, node, p);
-		return result;
+		p.setBuilding(this.visitor.visitBegin(node, p));
+		p.setBuilding(this.navigate(node.getBody(), p.getBuilding(), node, p));
+		p.setBuilding(this.visitor.visitEnd(node, p));
+		return p.getBuilding();
 	}
 
 	@Override
 	public OUT visitParam(ParamTree node, TagletVisitorContext<OUT> p) {
-		OUT result = this.visitor.visitParam(node, p);
-		result = this.navigate(node.getDescription(), result, node, p);
-		result = this.visitIdentifier(node.getName(), p);
-		return result;
+		p.setBuilding(this.visitor.visitBegin(node, p));
+		p.setBuilding(this.navigate(node.getDescription(), p.getBuilding(), node, p));
+		p.setBuilding(this.visitIdentifier(node.getName(), p));
+		p.setBuilding(this.visitor.visitEnd(node, p));
+		return p.getBuilding();
 	}
 
 	@Override
 	public OUT visitReference(ReferenceTree node, TagletVisitorContext<OUT> p) {
-		OUT result = this.visitor.visitReference(node, p);
-		return result;
+		p.setBuilding(this.visitor.visitBegin(node, p));
+		p.setBuilding(this.visitor.visitEnd(node, p));
+		return p.getBuilding();
 	}
 
 	@Override
 	public OUT visitReturn(ReturnTree node, TagletVisitorContext<OUT> p) {
-		OUT result = this.visitor.visitReturn(node, p);
-		result = this.navigate(node.getDescription(), result, node, p);
-		return result;
+		p.setBuilding(this.visitor.visitBegin(node, p));
+		p.setBuilding(this.navigate(node.getDescription(), p.getBuilding(), node, p));
+		p.setBuilding(this.visitor.visitEnd(node, p));
+		return p.getBuilding();
 	}
 
 	@Override
 	public OUT visitSee(SeeTree node, TagletVisitorContext<OUT> p) {
-		OUT result = this.visitor.visitSee(node, p);
-		result = this.navigate(node.getReference(), result, node, p);
-		return result;
+		p.setBuilding(this.visitor.visitBegin(node, p));
+		p.setBuilding(this.navigate(node.getReference(), p.getBuilding(), node, p));
+		p.setBuilding(this.visitor.visitEnd(node, p));
+		return p.getBuilding();
 	}
 
 	@Override
 	public OUT visitSerial(SerialTree node, TagletVisitorContext<OUT> p) {
-		OUT result = this.visitor.visitSerial(node, p);
-		result = this.navigate(node.getDescription(), result, node, p);
-		return result;
+		p.setBuilding(this.visitor.visitBegin(node, p));
+		p.setBuilding(this.navigate(node.getDescription(), p.getBuilding(), node, p));
+		p.setBuilding(this.visitor.visitEnd(node, p));
+		return p.getBuilding();
 	}
 
 	@Override
 	public OUT visitSerialData(SerialDataTree node, TagletVisitorContext<OUT> p) {
-		OUT result = this.visitor.visitSerialData(node, p);
-		result = this.navigate(node.getDescription(), result, node, p);
-		return result;
+		p.setBuilding(this.visitor.visitBegin(node, p));
+		p.setBuilding(this.navigate(node.getDescription(), p.getBuilding(), node, p));
+		p.setBuilding(this.visitor.visitEnd(node, p));
+		return p.getBuilding();
 	}
 
 	@Override
 	public OUT visitSerialField(SerialFieldTree node, TagletVisitorContext<OUT> p) {
-		OUT result = this.visitor.visitSerialField(node, p);
-		result = this.navigate(node.getDescription(), result, node, p);
-		result = this.navigate(node.getName(), result, node, p);
-		result = this.navigate(node.getType(), result, node, p);
-		return result;
+		p.setBuilding(this.visitor.visitBegin(node, p));
+		p.setBuilding(this.navigate(node.getDescription(), p.getBuilding(), node, p));
+		p.setBuilding(this.navigate(node.getName(), p.getBuilding(), node, p));
+		p.setBuilding(this.navigate(node.getType(), p.getBuilding(), node, p));
+		p.setBuilding(this.visitor.visitEnd(node, p));
+		return p.getBuilding();
 	}
 
 	@Override
 	public OUT visitSince(SinceTree node, TagletVisitorContext<OUT> p) {
-		OUT result = this.visitor.visitSince(node, p);
-		result = this.navigate(node.getBody(), result, node, p);
-		return result;
+		p.setBuilding(this.visitor.visitBegin(node, p));
+		p.setBuilding(this.navigate(node.getBody(), p.getBuilding(), node, p));
+		p.setBuilding(this.visitor.visitEnd(node, p));
+		return p.getBuilding();
 	}
 
 	@Override
 	public OUT visitStartElement(StartElementTree node, TagletVisitorContext<OUT> p) {
-		OUT result = this.visitor.visitStartElement(node, p);
-		result = this.navigate(node.getAttributes(), result, node, p);
-		return result;
+		p.setBuilding(this.visitor.visitBegin(node, p));
+		p.setBuilding(this.navigate(node.getAttributes(), p.getBuilding(), node, p));
+		p.setBuilding(this.visitor.visitEnd(node, p));
+		return p.getBuilding();
 	}
 
 	@Override
 	public OUT visitText(TextTree node, TagletVisitorContext<OUT> p) {
-		OUT result = this.visitor.visitText(node, p);
-		return result;
+		p.setBuilding(this.visitor.visitBegin(node, p));
+		p.setBuilding(this.visitor.visitEnd(node, p));
+		return p.getBuilding();
 	}
 
 	@Override
 	public OUT visitThrows(ThrowsTree node, TagletVisitorContext<OUT> p) {
-		OUT result = this.visitor.visitThrows(node, p);
-		result = this.navigate(node.getDescription(), result, node, p);
-		result = this.navigate(node.getExceptionName(), result, node, p);
-		return result;
+		p.setBuilding(this.visitor.visitBegin(node, p));
+		p.setBuilding(this.navigate(node.getDescription(), p.getBuilding(), node, p));
+		p.setBuilding(this.navigate(node.getExceptionName(), p.getBuilding(), node, p));
+		p.setBuilding(this.visitor.visitEnd(node, p));
+		return p.getBuilding();
 	}
 
 	@Override
 	public OUT visitUnknownBlockTag(UnknownBlockTagTree node, TagletVisitorContext<OUT> p) {
-		OUT result = this.visitor.visitUnknownBlockTag(node, p);
-		result = this.navigate(node.getContent(), result, node, p);
-		return result;
+		LOG.info("init parsing begin unknow block \"" + p.getBuilding() + "\"");
+		p.setBuilding(this.visitor.visitBegin(node, p));
+		LOG.info("init children of unknow block \"" + p.getBuilding() + "\"");
+		p.setBuilding(this.navigate(node.getContent(), p.getBuilding(), node, p));
+		LOG.info("init parsing end unknow block" + p.getBuilding());
+		p.setBuilding(this.visitor.visitEnd(node, p));
+		LOG.info("returnin building.." + p.getBuilding());
+		return p.getBuilding();
 	}
 
 	@Override
 	public OUT visitUnknownInlineTag(UnknownInlineTagTree node, TagletVisitorContext<OUT> p) {
-		OUT result = this.visitor.visitUnknownInlineTag(node, p);
-		result = this.navigate(node.getContent(), result, node, p);
-		return result;
+		p.setBuilding(this.visitor.visitBegin(node, p));
+		p.setBuilding(this.navigate(node.getContent(), p.getBuilding(), node, p));
+		p.setBuilding(this.visitor.visitEnd(node, p));
+		return p.getBuilding();
 	}
 
 	@Override
 	public OUT visitValue(ValueTree node, TagletVisitorContext<OUT> p) {
-		OUT result = this.visitor.visitValue(node, p);
-		result = this.navigate(node.getReference(), result, node, p);
-		return result;
+		p.setBuilding(this.visitor.visitBegin(node, p));
+		p.setBuilding(this.navigate(node.getReference(), p.getBuilding(), node, p));
+		p.setBuilding(this.visitor.visitEnd(node, p));
+		return p.getBuilding();
 	}
 
 	@Override
 	public OUT visitVersion(VersionTree node, TagletVisitorContext<OUT> p) {
-		OUT result = this.visitor.visitVersion(node, p);
-		result = this.navigate(node.getBody(), result, node, p);
-		return result;
+		p.setBuilding(this.visitor.visitBegin(node, p));
+		p.setBuilding(this.navigate(node.getBody(), p.getBuilding(), node, p));
+		p.setBuilding(this.visitor.visitEnd(node, p));
+		return p.getBuilding();
 	}
 
 	@Override
 	public OUT visitOther(DocTree node, TagletVisitorContext<OUT> p) {
-		OUT result = this.visitor.visitOther(node, p);
-		return result;
+		p.setBuilding(this.visitor.visitBegin(node, p));
+		p.setBuilding(this.visitor.visitEnd(node, p));
+		return p.getBuilding();
 	}
 
 }

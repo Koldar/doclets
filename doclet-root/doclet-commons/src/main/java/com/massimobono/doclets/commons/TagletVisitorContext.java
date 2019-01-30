@@ -1,5 +1,6 @@
-package com.massimobono.doclets.commons.taglets;
+package com.massimobono.doclets.commons;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,12 +57,26 @@ public class TagletVisitorContext<OUT> {
 		this.depth = depth;
 	}
 	
+	public String toString() {
+		return String.join("\n", Arrays.asList(
+				String.format("building = %s", this.building),
+				String.format("parent = %s", this.parent),
+				String.format("docTreeIndex = %d", this.docTreeIndex),
+				String.format("element = %s", this.element),
+				String.format("depth = %d", this.depth)
+		));
+	}
+	
 	public Optional<DocTree> getParent() {
 		return Optional.ofNullable(this.parent);
 	}
 	
 	public OUT getBuilding() {
 		return this.building;
+	}
+	
+	void setBuilding(OUT building) {
+		this.building = building;
 	}
 
 	public int getDocTreeIndex() {

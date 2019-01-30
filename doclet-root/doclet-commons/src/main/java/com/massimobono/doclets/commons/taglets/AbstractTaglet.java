@@ -7,7 +7,9 @@ import java.util.logging.Logger;
 
 import javax.lang.model.element.Element;
 
+import com.massimobono.doclets.commons.BeginEndDocVisitor;
 import com.massimobono.doclets.commons.SimpleDocTreeVisitor;
+import com.massimobono.doclets.commons.TagletVisitorContext;
 import com.sun.source.doctree.AttributeTree;
 import com.sun.source.doctree.AuthorTree;
 import com.sun.source.doctree.CommentTree;
@@ -47,7 +49,7 @@ import jdk.javadoc.doclet.Taglet;
  *
  * @param <OUT> the structure that we're going to build whilw we're inside the visitor used to explore the tag children
  */
-public abstract class AbstractTaglet<OUT> implements Taglet, DocTreeVisitor<OUT, TagletVisitorContext<OUT>> {
+public abstract class AbstractTaglet<OUT> implements Taglet, BeginEndDocVisitor<OUT, TagletVisitorContext<OUT>> {
 	
 	private static final Logger LOG = Logger.getLogger(AbstractTaglet.class.getName());
 	
@@ -139,9 +141,20 @@ public abstract class AbstractTaglet<OUT> implements Taglet, DocTreeVisitor<OUT,
 		
 		LOG.info(String.format("taglet is a forest of %d trees...", tags.size()));
 		for (int i=0; i<tags.size(); ++i) {
-			LOG.info(String.format("handling tree #%d out of %d", i, tags.size()));
 			var tag = tags.get(i);
-			result = tag.accept(tagVisitor, new TagletVisitorContext<OUT>(result, null, i, tags, element, 0));
+			try {
+				LOG.info(String.format("handling tree #%d out of %d", i, tags.size()));
+				result = tag.accept(tagVisitor, new TagletVisitorContext<OUT>(result, null, i, tags, element, 0));
+				LOG.info("wsergthjk" + (result == null ? "result null" : "result not null"));
+				
+				LOG.info(String.format("tree #%d has generated output %s", i, result.toString()));
+				LOG.info("wsergthjk2222");
+			} catch (Exception e) {
+				LOG.severe(String.format("An exception occured while handling the tree #%d: %s. We will ignore this tree", i, tag.getKind()));
+				LOG.throwing(AbstractTaglet.class.getName(), "toString", e);
+				e.printStackTrace();
+			}
+			
 		}
 		
 		return this.convertOutputToString(result);
