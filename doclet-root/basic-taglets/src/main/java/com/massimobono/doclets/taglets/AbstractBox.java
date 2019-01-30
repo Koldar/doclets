@@ -2,7 +2,7 @@ package com.massimobono.doclets.taglets;
 
 import java.awt.Color;
 
-import com.massimobono.doclets.commons.taglets.TagletVisitorContext;
+import com.massimobono.doclets.commons.TagletVisitorContext;
 import com.massimobono.doclets.commons.taglets.block.AbstractGroupTaglet;
 import com.massimobono.doclets.commons.taglets.block.AbstractTextBlockTaglet;
 import com.massimobono.doclets.commons.taglets.inline.AbstractTextInlineTaglet;
@@ -62,6 +62,17 @@ public abstract class AbstractBox extends AbstractTextInlineTaglet {
 	 * @return color of the font used to write the body text
 	 */
 	public abstract Color getBodyColor();
+	
+	@Override
+	public String visitBegin(TextTree arg0, TagletVisitorContext<String> arg1) {
+		return arg1.getBuilding();
+	}
+	
+	@Override
+	public String visitEnd(TextTree arg0, TagletVisitorContext<String> arg1) {
+		System.out.println("end note is " + arg1.toString());
+		return arg1.getBuilding();
+	}
 	
 
 }
