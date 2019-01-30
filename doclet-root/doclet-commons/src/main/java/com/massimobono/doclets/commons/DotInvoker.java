@@ -85,7 +85,7 @@ public class DotInvoker {
 		
 		//create image file
 		var cmds = new ArrayList<String>();
-		cmds.add(this.dot.toAbsolutePath().toString());
+		cmds.add(this.dot.toString());
 		cmds.add(String.format("-T%s", this.extension));
 		cmds.add(String.format("-o %s", imageFile.toString()));
 		if (!this.extraParams.isEmpty()) {
