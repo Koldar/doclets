@@ -10,6 +10,8 @@ javadoc \
     	-taglet com.massimobono.doclets.taglets.Date \
     	-taglet com.massimobono.doclets.taglets.Image \
     	-taglet com.massimobono.doclets.taglets.Dot \
+    	-taglet com.massimobono.doclets.taglets.MathFormula \
+    	-taglet com.massimobono.doclets.taglets.Note \
     	-author \
     	-d doc \
     	-nodeprecated \
