@@ -7,7 +7,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
-import com.massimobono.doclets.commons.taglets.TagletVisitorContext;
+import com.massimobono.doclets.commons.TagletVisitorContext;
 import com.massimobono.doclets.commons.taglets.block.AbstractTextBlockTaglet;
 import com.sun.source.doctree.TextTree;
 
@@ -44,7 +44,7 @@ public class Date extends AbstractTextBlockTaglet {
 	}
 
 	@Override
-	public String visitText(TextTree arg0, TagletVisitorContext<String> arg1) {
+	public String visitBegin(TextTree arg0, TagletVisitorContext<String> arg1) {
 		for (var dtf : this.allowedFormatter) {
 			try {
 				System.out.println(String.format("trying to parse \"%s\" with %s", arg0.getBody(), dtf.toString()));
@@ -58,6 +58,8 @@ public class Date extends AbstractTextBlockTaglet {
 		throw new RuntimeException(String.format("we couldn't parse the date \"%s\"!", arg0.getBody()));
 	}
 	
-	
+	public String visitEnd(TextTree arg0, TagletVisitorContext<String> arg1) {
+		return arg1.getBuilding();
+	}
 
 }

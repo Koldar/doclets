@@ -3,7 +3,7 @@ package com.massimobono.doclets.taglets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import com.massimobono.doclets.commons.taglets.TagletVisitorContext;
+import com.massimobono.doclets.commons.TagletVisitorContext;
 import com.massimobono.doclets.commons.taglets.inline.AbstractInlineTaglet;
 import com.massimobono.doclets.commons.taglets.inline.AbstractTextInlineTaglet;
 import com.sun.source.doctree.TextTree;
@@ -18,7 +18,7 @@ public class Image extends AbstractTextInlineTaglet implements CssUser {
 	}
 
 	@Override
-	public String visitText(TextTree arg0, TagletVisitorContext<String> arg1) {
+	public String visitBegin(TextTree arg0, TagletVisitorContext<String> arg1) {
 		var imageName = arg0.getBody();
 		if (imageName.startsWith("http")) {
 			//URL
@@ -37,5 +37,8 @@ public class Image extends AbstractTextInlineTaglet implements CssUser {
 		}
 	}
 	
+	public String visitEnd(TextTree arg0, TagletVisitorContext<String> arg1) {
+		return arg1.getBuilding();
+	}
 
 }
