@@ -1,6 +1,6 @@
 package com.massimobono.doclets.commons.taglets.block;
 
-import com.massimobono.doclets.commons.taglets.TagletVisitorContext;
+import com.massimobono.doclets.commons.TagletVisitorContext;
 import com.sun.source.doctree.AttributeTree;
 import com.sun.source.doctree.AuthorTree;
 import com.sun.source.doctree.CommentTree;
@@ -78,170 +78,338 @@ public abstract class AbstractTextBlockTaglet extends AbstractGroupTaglet<String
 	}
 	
 	@Override
-	public String visitAttribute(AttributeTree node, TagletVisitorContext<String> p) {
+	public String visitBegin(AttributeTree node, TagletVisitorContext<String> p) {
 		System.out.println(node.getClass().getSimpleName() + " " + node.toString());
 		return p.getBuilding();
 	}
 
 	@Override
-	public String visitAuthor(AuthorTree node, TagletVisitorContext<String> p) {
+	public String visitBegin(AuthorTree node, TagletVisitorContext<String> p) {
 		System.out.println(node.getClass().getSimpleName() + " " + node.toString());
 		return p.getBuilding();
 	}
 
 	@Override
-	public String visitComment(CommentTree node, TagletVisitorContext<String> p) {
+	public String visitBegin(CommentTree node, TagletVisitorContext<String> p) {
 		System.out.println(node.getClass().getSimpleName() + " " + node.toString());
 		return p.getBuilding();
 	}
 
 	@Override
-	public String visitDeprecated(DeprecatedTree node, TagletVisitorContext<String> p) {
+	public String visitBegin(DeprecatedTree node, TagletVisitorContext<String> p) {
 		System.out.println(node.getClass().getSimpleName() + " " + node.toString());
 		return p.getBuilding();
 	}
 
 	@Override
-	public String visitDocComment(DocCommentTree node, TagletVisitorContext<String> p) {
+	public String visitBegin(DocCommentTree node, TagletVisitorContext<String> p) {
 		System.out.println(node.getClass().getSimpleName() + " " + node.toString());
 		return p.getBuilding();
 	}
 
 	@Override
-	public String visitDocRoot(DocRootTree node, TagletVisitorContext<String> p) {
+	public String visitBegin(DocRootTree node, TagletVisitorContext<String> p) {
 		System.out.println(node.getClass().getSimpleName() + " " + node.toString());
 		return p.getBuilding();
 	}
 
 	@Override
-	public String visitEndElement(EndElementTree node, TagletVisitorContext<String> p) {
+	public String visitBegin(EndElementTree node, TagletVisitorContext<String> p) {
 		System.out.println(node.getClass().getSimpleName() + " " + node.toString());
 		return p.getBuilding();
 	}
 
 	@Override
-	public String visitEntity(EntityTree node, TagletVisitorContext<String> p) {
+	public String visitBegin(EntityTree node, TagletVisitorContext<String> p) {
 		System.out.println(node.getClass().getSimpleName() + " " + node.toString());
 		return p.getBuilding();
 	}
 
 	@Override
-	public String visitErroneous(ErroneousTree node, TagletVisitorContext<String> p) {
+	public String visitBegin(ErroneousTree node, TagletVisitorContext<String> p) {
 		System.out.println(node.getClass().getSimpleName() + " " + node.toString());
 		return p.getBuilding();
 	}
 
 	@Override
-	public String visitIdentifier(IdentifierTree node, TagletVisitorContext<String> p) {
+	public String visitBegin(IdentifierTree node, TagletVisitorContext<String> p) {
 		System.out.println(node.getClass().getSimpleName() + " " + node.toString());
 		return p.getBuilding();
 	}
 
 	@Override
-	public String visitInheritDoc(InheritDocTree node, TagletVisitorContext<String> p) {
+	public String visitBegin(InheritDocTree node, TagletVisitorContext<String> p) {
 		System.out.println(node.getClass().getSimpleName() + " " + node.toString());
 		return p.getBuilding();
 	}
 
 	@Override
-	public String visitLink(LinkTree node, TagletVisitorContext<String> p) {
+	public String visitBegin(LinkTree node, TagletVisitorContext<String> p) {
 		System.out.println(node.getClass().getSimpleName() + " " + node.toString());
 		return p.getBuilding();
 	}
 
 	@Override
-	public String visitLiteral(LiteralTree node, TagletVisitorContext<String> p) {
+	public String visitBegin(LiteralTree node, TagletVisitorContext<String> p) {
 		System.out.println(node.getClass().getSimpleName() + " " + node.toString());
 		return p.getBuilding();
 	}
 
 	@Override
-	public String visitParam(ParamTree node, TagletVisitorContext<String> p) {
+	public String visitBegin(ParamTree node, TagletVisitorContext<String> p) {
 		System.out.println(node.getClass().getSimpleName() + " " + node.toString());
 		return p.getBuilding();
 	}
 
 	@Override
-	public String visitReference(ReferenceTree node, TagletVisitorContext<String> p) {
+	public String visitBegin(ReferenceTree node, TagletVisitorContext<String> p) {
 		System.out.println(node.getClass().getSimpleName() + " " + node.toString());
 		return p.getBuilding();
 	}
 
 	@Override
-	public String visitReturn(ReturnTree node, TagletVisitorContext<String> p) {
+	public String visitBegin(ReturnTree node, TagletVisitorContext<String> p) {
 		System.out.println(node.getClass().getSimpleName() + " " + node.toString());
 		return p.getBuilding();
 	}
 
 	@Override
-	public String visitSee(SeeTree node, TagletVisitorContext<String> p) {
+	public String visitBegin(SeeTree node, TagletVisitorContext<String> p) {
 		System.out.println(node.getClass().getSimpleName() + " " + node.toString());
 		return p.getBuilding();
 	}
 
 	@Override
-	public String visitSerial(SerialTree node, TagletVisitorContext<String> p) {
+	public String visitBegin(SerialTree node, TagletVisitorContext<String> p) {
 		System.out.println(node.getClass().getSimpleName() + " " + node.toString());
 		return p.getBuilding();
 	}
 
 	@Override
-	public String visitSerialData(SerialDataTree node, TagletVisitorContext<String> p) {
+	public String visitBegin(SerialDataTree node, TagletVisitorContext<String> p) {
 		System.out.println(node.getClass().getSimpleName() + " " + node.toString());
 		return p.getBuilding();
 	}
 
 	@Override
-	public String visitSerialField(SerialFieldTree node, TagletVisitorContext<String> p) {
+	public String visitBegin(SerialFieldTree node, TagletVisitorContext<String> p) {
 		System.out.println(node.getClass().getSimpleName() + " " + node.toString());
 		return p.getBuilding();
 	}
 
 	@Override
-	public String visitSince(SinceTree node, TagletVisitorContext<String> p) {
+	public String visitBegin(SinceTree node, TagletVisitorContext<String> p) {
 		System.out.println(node.getClass().getSimpleName() + " " + node.toString());
 		return p.getBuilding();
 	}
 
 	@Override
-	public String visitStartElement(StartElementTree node, TagletVisitorContext<String> p) {
+	public String visitBegin(StartElementTree node, TagletVisitorContext<String> p) {
 		System.out.println(node.getClass().getSimpleName() + " " + node.toString());
 		return p.getBuilding();
 	}
 
 	@Override
-	public String visitThrows(ThrowsTree node, TagletVisitorContext<String> p) {
+	public String visitBegin(ThrowsTree node, TagletVisitorContext<String> p) {
 		System.out.println(node.getClass().getSimpleName() + " " + node.toString());
 		return p.getBuilding();
 	}
 
 	@Override
-	public String visitUnknownBlockTag(UnknownBlockTagTree node, TagletVisitorContext<String> p) {
+	public String visitBegin(UnknownBlockTagTree node, TagletVisitorContext<String> p) {
 		System.out.println(node.getClass().getSimpleName() + " " + node.toString());
 		return p.getBuilding();
 	}
 
 	@Override
-	public String visitUnknownInlineTag(UnknownInlineTagTree node, TagletVisitorContext<String> p) {
+	public String visitBegin(UnknownInlineTagTree node, TagletVisitorContext<String> p) {
 		System.out.println(node.getClass().getSimpleName() + " " + node.toString());
 		return p.getBuilding();
 	}
 
 	@Override
-	public String visitValue(ValueTree node, TagletVisitorContext<String> p) {
+	public String visitBegin(ValueTree node, TagletVisitorContext<String> p) {
 		System.out.println(node.getClass().getSimpleName() + " " + node.toString());
 		return p.getBuilding();
 	}
 
 	@Override
-	public String visitVersion(VersionTree node, TagletVisitorContext<String> p) {
+	public String visitBegin(VersionTree node, TagletVisitorContext<String> p) {
 		System.out.println(node.getClass().getSimpleName() + " " + node.toString());
 		return p.getBuilding();
 	}
 
 	@Override
-	public String visitOther(DocTree node, TagletVisitorContext<String> p) {
+	public String visitBegin(DocTree node, TagletVisitorContext<String> p) {
 		System.out.println(node.getClass().getSimpleName() + " " + node.toString());
+		return p.getBuilding();
+	}
+	
+	@Override
+	public String visitEnd(AttributeTree node, TagletVisitorContext<String> p) {
+		
+		return p.getBuilding();
+	}
+
+	@Override
+	public String visitEnd(AuthorTree node, TagletVisitorContext<String> p) {
+		
+		return p.getBuilding();
+	}
+
+	@Override
+	public String visitEnd(CommentTree node, TagletVisitorContext<String> p) {
+		
+		return p.getBuilding();
+	}
+
+	@Override
+	public String visitEnd(DeprecatedTree node, TagletVisitorContext<String> p) {
+		
+		return p.getBuilding();
+	}
+
+	@Override
+	public String visitEnd(DocCommentTree node, TagletVisitorContext<String> p) {
+		
+		return p.getBuilding();
+	}
+
+	@Override
+	public String visitEnd(DocRootTree node, TagletVisitorContext<String> p) {
+		
+		return p.getBuilding();
+	}
+
+	@Override
+	public String visitEnd(EndElementTree node, TagletVisitorContext<String> p) {
+		
+		return p.getBuilding();
+	}
+
+	@Override
+	public String visitEnd(EntityTree node, TagletVisitorContext<String> p) {
+		
+		return p.getBuilding();
+	}
+
+	@Override
+	public String visitEnd(ErroneousTree node, TagletVisitorContext<String> p) {
+		
+		return p.getBuilding();
+	}
+
+	@Override
+	public String visitEnd(IdentifierTree node, TagletVisitorContext<String> p) {
+		
+		return p.getBuilding();
+	}
+
+	@Override
+	public String visitEnd(InheritDocTree node, TagletVisitorContext<String> p) {
+		
+		return p.getBuilding();
+	}
+
+	@Override
+	public String visitEnd(LinkTree node, TagletVisitorContext<String> p) {
+		
+		return p.getBuilding();
+	}
+
+	@Override
+	public String visitEnd(LiteralTree node, TagletVisitorContext<String> p) {
+		
+		return p.getBuilding();
+	}
+
+	@Override
+	public String visitEnd(ParamTree node, TagletVisitorContext<String> p) {
+		
+		return p.getBuilding();
+	}
+
+	@Override
+	public String visitEnd(ReferenceTree node, TagletVisitorContext<String> p) {
+		
+		return p.getBuilding();
+	}
+
+	@Override
+	public String visitEnd(ReturnTree node, TagletVisitorContext<String> p) {
+		
+		return p.getBuilding();
+	}
+
+	@Override
+	public String visitEnd(SeeTree node, TagletVisitorContext<String> p) {
+		
+		return p.getBuilding();
+	}
+
+	@Override
+	public String visitEnd(SerialTree node, TagletVisitorContext<String> p) {
+		
+		return p.getBuilding();
+	}
+
+	@Override
+	public String visitEnd(SerialDataTree node, TagletVisitorContext<String> p) {
+		
+		return p.getBuilding();
+	}
+
+	@Override
+	public String visitEnd(SerialFieldTree node, TagletVisitorContext<String> p) {
+		
+		return p.getBuilding();
+	}
+
+	@Override
+	public String visitEnd(SinceTree node, TagletVisitorContext<String> p) {
+		
+		return p.getBuilding();
+	}
+
+	@Override
+	public String visitEnd(StartElementTree node, TagletVisitorContext<String> p) {
+		
+		return p.getBuilding();
+	}
+
+	@Override
+	public String visitEnd(ThrowsTree node, TagletVisitorContext<String> p) {
+		
+		return p.getBuilding();
+	}
+
+	@Override
+	public String visitEnd(UnknownBlockTagTree node, TagletVisitorContext<String> p) {
+		
+		return p.getBuilding();
+	}
+
+	@Override
+	public String visitEnd(UnknownInlineTagTree node, TagletVisitorContext<String> p) {
+		
+		return p.getBuilding();
+	}
+
+	@Override
+	public String visitEnd(ValueTree node, TagletVisitorContext<String> p) {
+		
+		return p.getBuilding();
+	}
+
+	@Override
+	public String visitEnd(VersionTree node, TagletVisitorContext<String> p) {
+		
+		return p.getBuilding();
+	}
+
+	@Override
+	public String visitEnd(DocTree node, TagletVisitorContext<String> p) {
+		
 		return p.getBuilding();
 	}
 	
