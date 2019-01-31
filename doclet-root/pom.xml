@@ -29,21 +29,53 @@
 					<release>11</release>
 				</configuration>
 			</plugin>
-			<!-- <plugin> https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin 
-				<groupId>org.apache.maven.plugins</groupId> <artifactId>maven-javadoc-plugin</artifactId> 
-				<version>3.0.1</version> <executions> <execution> <id>generate javadoc with 
-				taglets</id> <goals> <goal>javadoc</goal> </goals> <phase>prepare-package</phase> 
-				<configuration> <outputDirectory>${project.build.directory}/doc</outputDirectory> 
-				<destDir>doc</destDir> <author>true</author> <failOnError>true</failOnError> 
-				<verbose>false</verbose> <show>public</show> <nodeprecated>true</nodeprecated> 
-				<nodeprecatedlist>true</nodeprecatedlist> <noindex>true</noindex> <nonavbar>true</nonavbar> 
-				<notree>true</notree> <source>11</source> <sourcepath></sourcepath> <use>true</use> 
-				<version>true</version> <taglets> <taglet> <tagletClass>com.massimobono.doclets.taglets.Textbf</tagletClass> 
-				</taglet> </taglets> <tagletArtifact> <groupId>com.massimobono.doclets</groupId> 
-				<artifactId>basic-taglets</artifactId> <version>${project.version}</version> 
-				</tagletArtifact> </configuration> </execution> </executions> </plugin> -->
+			<plugin>
+				<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.1.0-SNAPSHOT</version>
+				<executions>
+					<execution>
+						<id>generate javadoc with taglets</id>
+						<goals>
+							<goal>javadoc</goal>
+						</goals>
+						<phase>prepare-package</phase>
+						<configuration>
+							<outputDirectory>${project.build.directory}/doc</outputDirectory>
+							<destDir>doc</destDir>
+							<author>true</author>
+							<failOnError>true</failOnError>
+							<failOnWarnings>true</failOnWarnings>
+							<verbose>false</verbose>
+							<show>public</show>
+							<nodeprecated>true</nodeprecated>
+							<nodeprecatedlist>true</nodeprecatedlist>
+							<noindex>true</noindex>
+							<nonavbar>true</nonavbar>
+							<notree>true</notree>
+							<source>11</source>
+							<use>true</use>
+							<version>true</version>
+							<tagletArtifacts>
+								<tagletArtifact>
+									<groupId>com.massimobono.doclets</groupId>
+									<artifactId>basic-taglets</artifactId>
+									<version>${project.version}</version>
+								</tagletArtifact>
+								<tagletArtifact>
+									<groupId>com.massimobono.doclets</groupId>
+									<artifactId>doclet-commons</artifactId>
+									<version>${project.version}</version>
+								</tagletArtifact>
+							</tagletArtifacts>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
+	
 	<modules>
 		<module>doclet-commons</module>
 		<module>basic-taglets</module>

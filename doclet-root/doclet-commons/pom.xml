@@ -6,16 +6,5 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>doclet-commons</artifactId>
-  <!-- 
-  <build>
-  	<plugins>
-  		<plugin>
-  			https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin
-		    <groupId>org.apache.maven.plugins</groupId>
-		    <artifactId>maven-javadoc-plugin</artifactId>
-		    <version>3.0.1</version>
-			
-  		</plugin>
-  	</plugins>
-  </build> -->
+  
 </project>
