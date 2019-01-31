@@ -15,7 +15,6 @@ import com.sun.source.doctree.TextTree;
  * Allows the developer to add a date of the annotated element
  * 
  * @author koldar
- * @date 26/01/2018
  */
 public class Date extends AbstractTextBlockTaglet {
 

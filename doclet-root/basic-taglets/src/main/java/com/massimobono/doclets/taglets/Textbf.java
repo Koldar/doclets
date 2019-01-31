@@ -4,7 +4,7 @@ import com.massimobono.doclets.commons.TagletVisitorContext;
 import com.massimobono.doclets.commons.taglets.inline.AbstractTextInlineTaglet;
 import com.sun.source.doctree.TextTree;
 
-/**
+/*
  * a taglet allowing you to print the text in bold
  * 
  * An example is {@textbf this string}, achieved via:
