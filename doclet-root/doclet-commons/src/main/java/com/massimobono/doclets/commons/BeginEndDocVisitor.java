@@ -35,8 +35,8 @@ import com.sun.source.doctree.VersionTree;
  * a {@link DocTreeVisitor} which implements the pattern begin and end.
  * @author koldar
  *
- * @param <R>
- * @param <P>
+ * @param <R> the return value of each visitor method
+ * @param <P> the type of an additional parameter of each visitor method 
  */
 public interface BeginEndDocVisitor<R, P> extends DocTreeVisitor<R, P>{
 	public R visitBegin(AttributeTree node, P p);

@@ -162,7 +162,8 @@ public abstract class AbstractTaglet<OUT> implements Taglet, BeginEndDocVisitor<
 	
 	/**
 	 * generate a new empty output object ready to be filled with the information fetched from visiting the taglet content
-	 * @return
+	 * 
+	 * @return an empty structure that will be populated during the tree visiting procedure
 	 */
 	public abstract OUT createOut();
 	

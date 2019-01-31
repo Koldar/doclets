@@ -73,10 +73,9 @@ public class LatexInvoker {
 	/**
 	 * generate the image representing the dot file associated
 	 * 
-	 * @param textFileContent the content of the dot file
+	 * @param texFileContent the content of the dot file
 	 * @return the path of the generated image
-	 * @throws IOException
-	 * @throws InterruptedException
+	 * @throws IOException if we fail to generate both intermediate files or final image
 	 */
 	public Path invoke(String texFileContent) throws IOException {
 		if (this.imageExtension.equalsIgnoreCase("svg")) {

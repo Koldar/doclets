@@ -43,9 +43,8 @@ import com.sun.source.doctree.VersionTree;
  * This visitor explicitly does it.
  *  
  * @author koldar
- *
- * @param <OUT>
- * @param <P>
+ * @param <OUT> the element we want to build during the visitor. Regardless of the type, this element will be force to be converted into a {@link String}
+ * after the visiting procedure has ended
  */
 public class SimpleDocTreeVisitor<OUT> implements DocTreeVisitor<OUT, TagletVisitorContext<OUT>> {
 	

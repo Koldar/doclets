@@ -14,7 +14,7 @@ import com.sun.source.doctree.DocTree;
  * 
  * @author koldar
  *
- * @param <OUT>
+ * @param <OUT> the type of the element that we want to build during {@link SimpleDocTreeVisitor} visiting procedure
  */
 public class TagletVisitorContext<OUT> {
 	

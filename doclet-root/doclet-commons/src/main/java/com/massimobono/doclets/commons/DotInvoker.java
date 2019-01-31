@@ -67,8 +67,7 @@ public class DotInvoker {
 	 * 
 	 * @param dotFileContent the content of the dot file
 	 * @return the path of the generated image
-	 * @throws IOException
-	 * @throws InterruptedException
+	 * @throws IOException if we fail to generate either the intermediate or the final image files
 	 */
 	public Path invoke(String dotFileContent) throws IOException {
 
