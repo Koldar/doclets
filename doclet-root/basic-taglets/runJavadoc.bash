@@ -12,6 +12,8 @@ javadoc \
     	-taglet com.massimobono.doclets.taglets.Dot \
     	-taglet com.massimobono.doclets.taglets.MathFormula \
     	-taglet com.massimobono.doclets.taglets.Note \
+    	-taglet com.massimobono.doclets.taglets.Warning \
+    	-taglet com.massimobono.doclets.taglets.Attention \
     	-author \
     	-d doc \
     	-nodeprecated \

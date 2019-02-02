@@ -4,7 +4,7 @@ import com.massimobono.doclets.commons.TagletVisitorContext;
 import com.massimobono.doclets.commons.taglets.inline.AbstractTextInlineTaglet;
 import com.sun.source.doctree.TextTree;
 
-/*
+/**
  * a taglet allowing you to print the text in bold
  * 
  * An example is {@textbf this string}, achieved via:
@@ -32,6 +32,13 @@ import com.sun.source.doctree.TextTree;
  *  {@note title
  *  Internal information!
  *  }
+ *  
+ *  Here's a note with custom taglets within it
+ *  
+ *  {@note title with {@textbf bold}
+ *  Internal information with {@textit italic}!
+ *  }
+ *  
  * 
  * 
  * @author koldar
